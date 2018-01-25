@@ -49,6 +49,7 @@ public class DemoApplication {
                 u.setUsername("zzgembo");
                 u.setAddress("Novi Grad");
                 u.setType(User.Type.firm);
+                u.setMail("luka.sicar@uns.ac.rs");
                 
                 variables.put("user", u);
                 
@@ -56,6 +57,8 @@ public class DemoApplication {
                 
                 List<Task> tasks = taskService.createTaskQuery().active().list();
                 System.out.println(tasks);
+                Task t=tasks.get(0);
+                taskService.complete(t.getId());
                 
                 System.out.println("kraj");
                 for (Deployment d : repositoryService.createDeploymentQuery().list()) {

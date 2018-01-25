@@ -10,6 +10,7 @@ public class CheckCredentialsService
   public boolean check(MockUser mu)
   {
     System.out.println("Check credentials");
+    
     return true;
   }
 }
