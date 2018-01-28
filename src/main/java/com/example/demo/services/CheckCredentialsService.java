@@ -13,4 +13,13 @@ public class CheckCredentialsService
     
     return true;
   }
+  
+  public void confirmCredentials() {
+	  System.out.println("korisnik snimljen u bazu");
+  }
+  
+  public void neceProci() {
+	  System.out.println("Korisnik se brise iz servisa");
+  }
+  
 }

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Examples" id="definitions">
+
+  <signal id="alertSignal" name="alert"></signal>
+
+  <process id="catchSignal" isExecutable="true">
+
+    <startEvent id="start"></startEvent>
+
+    <eventBasedGateway id="gw1"></eventBasedGateway>
+
+    <sequenceFlow id="sequenceFlow-3051249c-7a8d-4664-b555-3d2dbad2cd87" sourceRef="gw1" targetRef="signalEvent"></sequenceFlow>
+
+    <sequenceFlow id="sequenceFlow-f7c70e01-8a9d-401f-891a-86ac6adba48d" sourceRef="gw1" targetRef="timerEvent"></sequenceFlow>
+
+    <intermediateCatchEvent id="signalEvent" name="Alert">
+
+      <signalEventDefinition signalRef="alertSignal"></signalEventDefinition>
+
+    </intermediateCatchEvent>
+
+    <intermediateCatchEvent id="timerEvent" name="Alert">
+
+      <timerEventDefinition>
+
+        <timeDuration>PT10M</timeDuration>
+
+      </timerEventDefinition>
+
+    </intermediateCatchEvent>
+
+    <sequenceFlow id="sequenceFlow-63cbfd19-ba5a-4731-a55c-465e63864847" sourceRef="timerEvent" targetRef="exGw1"></sequenceFlow>
+
+    <sequenceFlow id="sequenceFlow-a89c2ece-3118-4dc1-b060-0e95df0579de" sourceRef="signalEvent" targetRef="servicetask1"></sequenceFlow>
+
+    <exclusiveGateway id="exGw1"></exclusiveGateway>
+
+    <sequenceFlow id="sequenceFlow-d97bc397-6f10-4748-a787-8e4d18ee1ea4" sourceRef="servicetask1" targetRef="exGw1"></sequenceFlow>
+
+    <sequenceFlow id="sequenceFlow-f1a30ab8-6521-4f8b-af60-84dc23fac33c" sourceRef="exGw1" targetRef="end"></sequenceFlow>
+
+    <endEvent id="end"></endEvent>
+
+    <serviceTask id="servicetask1" name="Handle alert" activiti:expression="${execution.setVariable('result', 'Handle alert')}"></serviceTask>
+
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="gw1"></sequenceFlow>
+
+  </process>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_catchSignal">
+
+    <bpmndi:BPMNPlane bpmnElement="catchSignal" id="BPMNPlane_catchSignal">
+
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+
+        <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="63.0"></omgdc:Bounds>
+
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape bpmnElement="gw1" id="BPMNShape_gw1">
+
+        <omgdc:Bounds height="40.0" width="40.0" x="230.0" y="60.0"></omgdc:Bounds>
+
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape bpmnElement="signalEvent" id="BPMNShape_signalEvent">
+
+        <omgdc:Bounds height="35.0" width="35.0" x="320.0" y="132.0"></omgdc:Bounds>
+
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape bpmnElement="timerEvent" id="BPMNShape_timerEvent">
+
+        <omgdc:Bounds height="35.0" width="35.0" x="320.0" y="0.0"></omgdc:Bounds>
+
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape bpmnElement="exGw1" id="BPMNShape_exGw1">
+
+        <omgdc:Bounds height="40.0" width="40.0" x="550.0" y="48.0"></omgdc:Bounds>
+
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+
+        <omgdc:Bounds height="35.0" width="35.0" x="640.0" y="51.0"></omgdc:Bounds>
+
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+
+        <omgdc:Bounds height="60.0" width="100.0" x="420.0" y="120.0"></omgdc:Bounds>
+
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow-3051249c-7a8d-4664-b555-3d2dbad2cd87" id="BPMNEdge_sequenceFlow-3051249c-7a8d-4664-b555-3d2dbad2cd87">
+
+        <omgdi:waypoint x="270.0" y="80.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="282.0" y="80.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="282.0" y="145.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="320.0" y="149.0"></omgdi:waypoint>
+
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow-f7c70e01-8a9d-401f-891a-86ac6adba48d" id="BPMNEdge_sequenceFlow-f7c70e01-8a9d-401f-891a-86ac6adba48d">
+
+        <omgdi:waypoint x="270.0" y="80.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="282.0" y="80.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="282.0" y="15.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="320.0" y="17.0"></omgdi:waypoint>
+
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow-63cbfd19-ba5a-4731-a55c-465e63864847" id="BPMNEdge_sequenceFlow-63cbfd19-ba5a-4731-a55c-465e63864847">
+
+        <omgdi:waypoint x="355.0" y="17.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="362.0" y="15.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="569.0" y="15.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="570.0" y="48.0"></omgdi:waypoint>
+
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow-a89c2ece-3118-4dc1-b060-0e95df0579de" id="BPMNEdge_sequenceFlow-a89c2ece-3118-4dc1-b060-0e95df0579de">
+
+        <omgdi:waypoint x="337.0" y="167.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="395.0" y="226.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="470.0" y="180.0"></omgdi:waypoint>
+
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow-d97bc397-6f10-4748-a787-8e4d18ee1ea4" id="BPMNEdge_sequenceFlow-d97bc397-6f10-4748-a787-8e4d18ee1ea4">
+
+        <omgdi:waypoint x="520.0" y="150.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="569.0" y="150.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="569.0" y="130.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="570.0" y="88.0"></omgdi:waypoint>
+
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow-f1a30ab8-6521-4f8b-af60-84dc23fac33c" id="BPMNEdge_sequenceFlow-f1a30ab8-6521-4f8b-af60-84dc23fac33c">
+
+        <omgdi:waypoint x="590.0" y="68.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="640.0" y="68.0"></omgdi:waypoint>
+
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+
+        <omgdi:waypoint x="105.0" y="80.0"></omgdi:waypoint>
+
+        <omgdi:waypoint x="230.0" y="80.0"></omgdi:waypoint>
+
+      </bpmndi:BPMNEdge>
+
+    </bpmndi:BPMNPlane>
+
+  </bpmndi:BPMNDiagram>
+
+</definitions>

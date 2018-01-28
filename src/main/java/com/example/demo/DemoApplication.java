@@ -11,6 +11,7 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -49,21 +50,24 @@ public class DemoApplication {
                 u.setUsername("zzgembo");
                 u.setAddress("Novi Grad");
                 u.setType(User.Type.firm);
-                u.setMail("luka.sicar@uns.ac.rs");
+                u.setMail("milos@localhost");
                 
                 variables.put("user", u);
                 
-                runtimeService.startProcessInstanceById(pdf.getId(), variables);
-                
+                ProcessInstance pi=runtimeService.startProcessInstanceById(pdf.getId(), variables);
+                System.out.println(pdf.getId());
+                System.out.println(pi.getId());
+                variables.put("pi", pi.getId());
+                //runtimeService.startProcessInstanceByKey("hireProcess",variables);
                 List<Task> tasks = taskService.createTaskQuery().active().list();
                 System.out.println(tasks);
                 Task t=tasks.get(0);
-                taskService.complete(t.getId());
+                taskService.complete(t.getId(),variables);
                 
                 System.out.println("kraj");
-                for (Deployment d : repositoryService.createDeploymentQuery().list()) {
+                /*for (Deployment d : repositoryService.createDeploymentQuery().list()) {
                   repositoryService.deleteDeployment(d.getId(), true);
-                }
+                }*/
             }
         };
 
