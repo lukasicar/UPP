@@ -1,8 +1,9 @@
 package com.example.demo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TenderRequest {
+public class TenderRequest implements Serializable{
 	
 	private Category category;
 	private String opisPosla;

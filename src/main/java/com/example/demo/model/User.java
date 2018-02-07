@@ -3,10 +3,19 @@ package com.example.demo.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+@Entity
+//@Table(name="UUSER")
 public class User
   implements Serializable
 {
   private static final long serialVersionUID = 1L;
+  @Id
   private String username;
   private String ime;
   private String password;
@@ -18,9 +27,20 @@ public class User
   private long longitude;
   private long latitude;
   private long udaljenost;
-  private List<Category> categories;
+  //@OneToMany(cascade = CascadeType.ALL,mappedBy="user")
+  //private List<Category> categories;
+  @ManyToOne
+  private Category category;
   
-  public static enum Type
+  public Category getCategory() {
+	return category;
+}
+
+public void setCategory(Category category) {
+	this.category = category;
+}
+
+public static enum Type
   {
     regular,  firm;
   }
@@ -34,7 +54,7 @@ public class User
   {
     this.udaljenost = udaljenost;
   }
-  
+  /*
   public List<Category> getCategories()
   {
     return this.categories;
@@ -43,7 +63,7 @@ public class User
   public void setCategories(List<Category> categories)
   {
     this.categories = categories;
-  }
+  }*/
   
   public String getUsername()
   {
