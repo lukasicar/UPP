@@ -21,14 +21,18 @@ public class EligibleFirmsService {
 		System.out.println("udje odje");
 		List<User> firms=userRepository.findByType(Type.firm);
 		ArrayList<User> ff=new ArrayList<>();
+		//System.out.println(firms.size());
 		//System.out.println(firms);
 		for(User firm : firms) {
 			//System.out.println(firm.getUsername());
 			//System.out.println(firm.getCategory());
+			//System.out.println(firm.getCategory().getName());
+			//System.out.println(tr.getCategory().getName());
 			if((firm.getCategory().getName().equals(tr.getCategory().getName()))) {
 				ff.add(firm);
 			}
 		}
+		//System.out.println(ff.size());
 		return ff;
 	}
 	

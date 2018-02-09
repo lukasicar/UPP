@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.example.demo.model.Category;
+import com.example.demo.model.FirmOffer;
 import com.example.demo.model.MockUser;
 import com.example.demo.model.TenderRequest;
 import com.example.demo.model.User;
@@ -85,7 +87,7 @@ public class DemoApplication {
                 
                 TenderRequest tr=new TenderRequest();
                 Category c=new Category();
-                c.setName("Fasada");
+                c.setName("Nabaca");
                 tr.setCategory(c);
                 tr.setMaksimalniBrojPonuda(5);
                 tr.setOpisPosla("trlababalan");
@@ -95,11 +97,29 @@ public class DemoApplication {
                 variables.put("tr", tr);
                 User u=userRepository.findByUsername("user1");
                 variables.put("user", u);
-                runtimeService.startProcessInstanceById(pdf.getId(), variables);
+                List<FirmOffer> firmOffers=new ArrayList<>();
+                variables.put("firmOffers", firmOffers);
+                ProcessInstance pi=runtimeService.startProcessInstanceById(pdf.getId(), variables);
                 List<Task> tasks=taskService.createTaskQuery().active().list();
                 System.out.println(tasks);
-                System.out.println(tasks.get(0).getAssignee());
-                taskService.complete(tasks.get(0).getId());
+                //System.out.println(tasks.get(0).getAssignee());
+                taskService.complete(tasks.get(tasks.size()-1).getId());
+                //System.out.println(taskService.createTaskQuery().active().list());
+                Task t=taskService.createTaskQuery().active().list().get(taskService.createTaskQuery().active().list().size()-1);
+                //t.getProcessVariables().put("odabir1", false);
+                //System.out.println(t.getProcessVariables());
+                //System.out.println(runtimeService.getVariables(pi.getId()));
+                Map<String,Object> v1=runtimeService.getVariables(t.getProcessInstanceId());
+                v1.put("odabir1", true);
+                //System.out.println(v1);
+                //System.out.println(runtimeService.getVariables(t.getProcessInstanceId()));
+                try{taskService.complete(t.getId(),v1);}catch (Exception e) {
+					// TODO: handle exception
+                	System.out.println(e.getLocalizedMessage());
+                	System.out.println("idemo dalje");
+				}
+                System.out.println(taskService.createTaskQuery().active().list());
+                
                 for (Deployment d : repositoryService.createDeploymentQuery().list()) {
                     repositoryService.deleteDeployment(d.getId(), true);
                 }
