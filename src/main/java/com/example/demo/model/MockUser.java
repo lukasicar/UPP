@@ -13,7 +13,7 @@ public class MockUser
   private String mail;
   private String address;
   private long postanskiBroj;
-  private String mesto;
+  private String mjesto;
   private User.Type type;
   private long longitude;
   private long latitude;
@@ -82,12 +82,12 @@ public class MockUser
   
   public String getMesto()
   {
-    return this.mesto;
+    return this.mjesto;
   }
   
   public void setMesto(String mesto)
   {
-    this.mesto = mesto;
+    this.mjesto = mesto;
   }
   
   public User.Type getType()

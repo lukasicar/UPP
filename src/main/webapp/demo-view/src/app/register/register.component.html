@@ -1,4 +1,30 @@
-<p>
-  register works!
-</p>
-
+Ime<input type="text" name="ime" [(ngModel)]="mu.ime" ><br/>
+  
+E-mail<input type="text" name="mail" [ngModel]="mu?.mail"><br/>
+<label class="item item-input">
+	<span class="input-label">Username</span>
+	<input placeholder="" type="text" [ngModel]="mu?.username"/>
+</label><br/>
+Password<input type="password"><br/>
+<label class="item item-input">
+	<span class="input-label">Adresa</span>
+	<input placeholder="" type="text" [ngModel]="mu?.address"/>
+</label><br/>
+<label class="item item-input">
+	<span class="input-label">Mjesto</span>
+	<input placeholder="" type="text" [ngModel]="mu?.mjesto"/>
+</label><br/>
+<label class="item item-input">
+	<span class="input-label">Postanski broj</span>
+	<input placeholder="" type="number" [ngModel]="mu?.postanskiBroj"/>
+</label><br/>
+Vrsta korisnika
+<select [ngModel]="mu?.type">
+	<option>Regular</option>
+	<option>Firm</option>
+</select>
+<br/><br/><br/>
+<!--  
+<select [(ngModel)]="selectedValue">
+  <option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
+</select>-->

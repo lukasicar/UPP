@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.annotation.PreDestroy;
+
 import org.activiti.engine.FormService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -49,13 +51,13 @@ public class DemoApplication {
         return new CommandLineRunner() {
             @Override
             public void run(String... strings) throws Exception {
-            	DemoApplication.scanner = new Scanner(System.in);
-                Map<String, Object> variables = new HashMap();
+            	//DemoApplication.scanner = new Scanner(System.in);
+                //Map<String, Object> variables = new HashMap();
                 
                 
-                /*
+                
                 System.out.println("Ukupan broj deployment-a: " + repositoryService.createDeploymentQuery().count());
-                ProcessDefinition pdf = (ProcessDefinition)repositoryService.createProcessDefinitionQuery().list().get(
+                /*ProcessDefinition pdf = (ProcessDefinition)repositoryService.createProcessDefinitionQuery().list().get(
                   repositoryService.createProcessDefinitionQuery().list().size() - 1);
                 MockUser u = new MockUser();
                 u.setUsername("zzgembo");
@@ -80,7 +82,7 @@ public class DemoApplication {
                   repositoryService.deleteDeployment(d.getId(), true);
                 }*/
                 
-                
+                /*
                 System.out.println("Ukupan broj deployment-a: " + repositoryService.createDeploymentQuery().count());
                 ProcessDefinition pdf = (ProcessDefinition)repositoryService.createProcessDefinitionQuery().list().get(
                   repositoryService.createProcessDefinitionQuery().list().size() - 1);
@@ -122,10 +124,17 @@ public class DemoApplication {
                 
                 for (Deployment d : repositoryService.createDeploymentQuery().list()) {
                     repositoryService.deleteDeployment(d.getId(), true);
-                }
+                }*/
             }
         };
 
+    }
+	
+	
+	@PreDestroy
+    public void tearDown() {
+       // some destroy code
+		System.out.println("Ode niz vodu");
     }
 
 }

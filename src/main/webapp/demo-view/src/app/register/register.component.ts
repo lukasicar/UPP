@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RegisterService } from './register.service';
+import { Category } from './register.category';
+import { MockUser } from './../home/home.mockuser';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+    categories: Category[]=[];
+    mu: MockUser=new MockUser();
+    
+    constructor(private  registerService: RegisterService) { }
 
-  ngOnInit() {
-  }
-
+      ngOnInit() {
+        //this.getCategories();
+      }
+/*
+    getCategories(){
+        this.registerService.getCategories().subscribe(s => this.categories.push(s));
+    }*/
 }
