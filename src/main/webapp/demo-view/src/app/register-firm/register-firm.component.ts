@@ -14,6 +14,7 @@ export class RegisterFirmComponent implements OnInit {
     @Input() taskId: string;
     mu: MockUser=new MockUser();
     categoryName:string;
+    o: Category;
     
     constructor(private registerFirmService: RegisterFirmService) { }
 
@@ -22,11 +23,13 @@ export class RegisterFirmComponent implements OnInit {
       }
     
     register(mu:MockUser){
-        alert(this.mu.udaljenost);
-        //this.registerFirmService.register(this.mu,this.taskId).subscribe(x=>window.location.reload());
+        this.o=new Category();
+        this.o.name=this.categoryName;
+        this.mu.category=this.o
+        this.registerFirmService.register(this.mu,this.taskId).subscribe(x=>window.location.reload());
     }
 
     getCategories(){
-        this.registerFirmService.getCategories().subscribe(s => this.categories.push(s));
+        this.registerFirmService.getCategories().subscribe(s => {this.categories=s;});
     }
 }

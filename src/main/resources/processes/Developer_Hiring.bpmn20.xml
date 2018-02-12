@@ -23,7 +23,7 @@
     <sequenceFlow id="flow5" sourceRef="inclusivegateway1" targetRef="servicetask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow6" sourceRef="servicetask1" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow7" sourceRef="exclusivegateway2" targetRef="sid-9DFC483F-2C57-4378-AE25-30460BD3838F">
+    <sequenceFlow id="flow7" sourceRef="exclusivegateway2" targetRef="usertask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${c==false}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -40,7 +40,7 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression><![CDATA[A ja jos spavam po navici  c ${c}
-http://localhost:8080/confirmMail/get/${pi}]]></activiti:expression>
+http://localhost:8080/confirmMail/get/${execution.getProcessInstanceId()}]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -59,8 +59,8 @@ http://localhost:8080/confirmMail/get/${pi}]]></activiti:expression>
     </intermediateCatchEvent>
     <sequenceFlow id="flow10" sourceRef="eventgateway1" targetRef="timerintermediatecatchevent1"></sequenceFlow>
     <sequenceFlow id="flow11" sourceRef="eventgateway1" targetRef="signalintermediatecatchevent1"></sequenceFlow>
-    <serviceTask id="servicetask2" name="Brisanje korisnika" activiti:expression="${checkCredentialsService.neceProci()}"></serviceTask>
-    <serviceTask id="servicetask3" name="Registracija korisnika" activiti:expression="${checkCredentialsService.confirmCredentials()}"></serviceTask>
+    <serviceTask id="servicetask2" name="Brisanje korisnika" activiti:expression="${checkCredentialsService.neceProci(user.username)}"></serviceTask>
+    <serviceTask id="servicetask3" name="Registracija korisnika" activiti:expression="${checkCredentialsService.confirmCredentials(user.username)}"></serviceTask>
     <inclusiveGateway id="inclusivegateway2" name="Inclusive Gateway"></inclusiveGateway>
     <sequenceFlow id="flow12" sourceRef="servicetask2" targetRef="inclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow13" sourceRef="inclusivegateway2" targetRef="endevent1"></sequenceFlow>
@@ -150,7 +150,7 @@ http://localhost:8080/confirmMail/get/${pi}]]></activiti:expression>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="754.0" y="312.0"></omgdi:waypoint>
-        <omgdi:waypoint x="349.0" y="266.0"></omgdi:waypoint>
+        <omgdi:waypoint x="179.0" y="257.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="754.0" y="352.0"></omgdi:waypoint>

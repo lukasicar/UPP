@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class MockUser
   implements Serializable
@@ -80,14 +79,14 @@ public class MockUser
     this.postanskiBroj = postanskiBroj;
   }
   
-  public String getMesto()
+  public String getMjesto()
   {
     return this.mjesto;
   }
   
-  public void setMesto(String mesto)
+  public void setMjesto(String mjesto)
   {
-    this.mjesto = mesto;
+    this.mjesto = mjesto;
   }
   
   public User.Type getType()

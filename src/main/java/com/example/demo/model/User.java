@@ -1,14 +1,10 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 @Entity
 //@Table(name="UUSER")
 public class User
@@ -22,11 +18,12 @@ public class User
   private String mail;
   private String address;
   private long postanskiBroj;
-  private String mesto;
+  private String mjesto;
   private Type type;
   private long longitude;
   private long latitude;
   private long udaljenost;
+  private boolean activated;
   //@OneToMany(cascade = CascadeType.ALL,mappedBy="user")
   //private List<Category> categories;
   @ManyToOne
@@ -125,14 +122,14 @@ public static enum Type
     this.postanskiBroj = postanskiBroj;
   }
   
-  public String getMesto()
+  public String getMjesto()
   {
-    return this.mesto;
+    return this.mjesto;
   }
   
-  public void setMesto(String mesto)
+  public void setMjesto(String mjesto)
   {
-    this.mesto = mesto;
+    this.mjesto = mjesto;
   }
   
   public Type getType()
@@ -164,4 +161,12 @@ public static enum Type
   {
     this.longitude = longitude;
   }
+
+public boolean isActivated() {
+	return activated;
+}
+
+public void setActivated(boolean activated) {
+	this.activated = activated;
+}
 }

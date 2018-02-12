@@ -19,7 +19,7 @@ public class LocationService {
 				GeocodingResult[] results;
 				try {
 					results = GeocodingApi.geocode(context,
-					    "Kragujevac").await();
+					    u.getMjesto()).await();
 					Gson gson = new GsonBuilder().setPrettyPrinting().create();
 					u.setLongitude((long) results[0].geometry.location.lng);
 					u.setLatitude((long) results[0].geometry.location.lat);

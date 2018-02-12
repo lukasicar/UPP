@@ -60,11 +60,20 @@ public class RegistrationController {
 	public String eiopsasa(@PathVariable String id,@RequestBody MockUser mu) {
 		Task t=taskService.createTaskQuery().taskId(id).singleResult();
 		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
-		
+		if(variables.containsKey("user")) {
+			MockUser mm=(MockUser) variables.get("user");
+			if(mu.getUsername()==null) {
+				mm.setCategory(mu.getCategory());
+				mm.setUdaljenost(mu.getUdaljenost());
+				variables.put("user", mm);
+				taskService.complete(id,variables);
+				System.out.println("bila firma");
+				return "adads";
+			}
+		}
 		variables.put("user", mu);
-		System.out.println(variables);
-		System.out.println(mu.getType());
 		taskService.complete(id,variables);
+		System.out.println("bio obican");
 		return "adads";
 	}
 	
