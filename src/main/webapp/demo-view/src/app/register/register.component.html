@@ -1,30 +1,33 @@
+<div align="center">
 Ime<input type="text" name="ime" [(ngModel)]="mu.ime" ><br/>
   
-E-mail<input type="text" name="mail" [ngModel]="mu?.mail"><br/>
+E-mail<input type="text" name="mail" [(ngModel)]="mu.mail"><br/>
 <label class="item item-input">
 	<span class="input-label">Username</span>
-	<input placeholder="" type="text" [ngModel]="mu?.username"/>
+	<input placeholder="" type="text" [(ngModel)]="mu.username"/>
 </label><br/>
 Password<input type="password"><br/>
 <label class="item item-input">
 	<span class="input-label">Adresa</span>
-	<input placeholder="" type="text" [ngModel]="mu?.address"/>
+	<input placeholder="" type="text" [(ngModel)]="mu.address"/>
 </label><br/>
 <label class="item item-input">
 	<span class="input-label">Mjesto</span>
-	<input placeholder="" type="text" [ngModel]="mu?.mjesto"/>
+	<input placeholder="" type="text" [(ngModel)]="mu.mjesto"/>
 </label><br/>
 <label class="item item-input">
 	<span class="input-label">Postanski broj</span>
-	<input placeholder="" type="number" [ngModel]="mu?.postanskiBroj"/>
+	<input placeholder="" type="number" [(ngModel)]="mu.postanskiBroj"/>
 </label><br/>
 Vrsta korisnika
-<select [ngModel]="mu?.type">
-	<option>Regular</option>
-	<option>Firm</option>
+<select [(ngModel)]="mu.type">
+	<option value="0">Regular</option>
+	<option value="1">Firm</option>
 </select>
 <br/><br/><br/>
+<button id="button-1" class="button" (click)="register(mu)">Complete Task</button>
 <!--  
 <select [(ngModel)]="selectedValue">
   <option *ngFor="let c of countries" [ngValue]="c">{{c.name}}</option>
 </select>-->
+</div>

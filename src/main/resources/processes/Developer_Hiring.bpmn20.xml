@@ -3,7 +3,7 @@
   <signal id="cancelApplication" name="cancelApplication"></signal>
   <signal id="alertSignal" name="alert" activiti:scope="global"></signal>
   <process id="hireProcess" name="Developer Hiring" isExecutable="true">
-    <serviceTask id="sid-9DFC483F-2C57-4378-AE25-30460BD3838F" name="Determine location" activiti:expression="${locationService.resolveLocation(user)}"></serviceTask>
+    <serviceTask id="sid-9DFC483F-2C57-4378-AE25-30460BD3838F" name="Determine location" activiti:expression="${locationService.resolveLocation(user)}" activiti:resultVariableName="user"></serviceTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow1" sourceRef="sid-9DFC483F-2C57-4378-AE25-30460BD3838F" targetRef="exclusivegateway1"></sequenceFlow>
     <inclusiveGateway id="inclusivegateway1" name="Inclusive Gateway"></inclusiveGateway>

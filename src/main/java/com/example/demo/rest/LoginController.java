@@ -32,4 +32,12 @@ public class LoginController {
 		return "smailaga";
 	}
 	
+	@GetMapping("/ocisti")
+	public void eto() {
+		for (Deployment d : repositoryService.createDeploymentQuery().list()) {
+            repositoryService.deleteDeployment(d.getId(), true);
+        }
+	}
+	
+	
 }

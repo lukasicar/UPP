@@ -1,3 +1,4 @@
+import { Category } from './../register/register.category';
 export class MockUser{
     
     ime: string;
@@ -8,6 +9,8 @@ export class MockUser{
     postanskiBroj: number;
     mjesto: string;
     type:string;
+    udaljenost:number;
+    category: Category;
     /*constructor(ime: string, username: string,password: string, mail: string,address: string, postanskiBroj: number,
         mjesto: string,type: string) {
         this.ime = ime;

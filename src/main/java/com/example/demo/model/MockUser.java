@@ -18,7 +18,7 @@ public class MockUser
   private long longitude;
   private long latitude;
   private long udaljenost;
-  private List<Category> categories;
+  private Category category;
   
   public String getUsername()
   {
@@ -129,14 +129,12 @@ public class MockUser
   {
     this.udaljenost = udaljenost;
   }
-  
-  public List<Category> getCategories()
-  {
-    return this.categories;
-  }
-  
-  public void setCategories(List<Category> categories)
-  {
-    this.categories = categories;
-  }
+
+	public Category getCategory() {
+		return category;
+	}
+	
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 }

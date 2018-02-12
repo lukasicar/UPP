@@ -6,10 +6,11 @@
 
 <br/><br/><br/><br/>
 <ol>
-  <li *ngFor="let task of tasks" (click)='beeba(task.name)'>
+  <li *ngFor="let task of tasks" (click)='beeba(task.name,task.id)'>
    {{task.name}} 
 </li>
 </ol>
 
-<app-register *ngIf="s=='Registracija Korisnika'"></app-register>
+<app-register *ngIf="taskName=='Registracija Korisnika'" [taskId]='taskId'></app-register>
+<app-register-firm *ngIf="taskName=='Registracija firme'" [taskId]='taskId'></app-register-firm>
 

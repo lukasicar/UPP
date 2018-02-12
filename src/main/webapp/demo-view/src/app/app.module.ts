@@ -9,12 +9,15 @@ import { HomeComponent } from './home/home.component';
 import { RegisterService } from './register/register.service';
 import { HttpModule } from '@angular/http';
 import { HomeService } from './home/home.service';
+import { RegisterFirmComponent } from './register-firm/register-firm.component';
+import { RegisterFirmService } from './register-firm/register-firm.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterFirmComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,7 @@ import { HomeService } from './home/home.service';
     HttpModule,
     FormsModule
   ],
-  providers: [RegisterService,HomeService],
+  providers: [RegisterService,HomeService,RegisterFirmService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,11 @@
+
+<div align="center">
+<label class="item item-input" >
+	<span class="input-label">Udaljenost</span>
+	<input  [(ngModel)]="mu.udaljenost" type="number"/>
+</label>  
+<br/>
+<select [(ngModel)]="categoryName">
+  <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
+</select>
+<button id="button-1" class="button" (click)='register(mu)'>Complete task</button>

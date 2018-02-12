@@ -10,7 +10,8 @@ import { HomeService } from './home.service';
 export class HomeComponent implements OnInit {
       
     tasks: string[];
-    s: string="d";
+    taskId: string="";
+    taskName: string="";
 
     constructor(private homeService: HomeService) { }
     
@@ -33,8 +34,9 @@ export class HomeComponent implements OnInit {
         this.homeService.getTasks().subscribe(x=>this.tasks=x);
     }
     
-    beeba(id: string){
+    beeba(taskName: string,id: string){
         alert(id);
-        this.s=id;
+        this.taskId=id;
+        this.taskName=taskName;
     }
 }
