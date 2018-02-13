@@ -36,6 +36,7 @@ public class CheckCredentialsService
 	    		u.setPostanskiBroj(mu.getPostanskiBroj());
 	    		u.setCategory(mu.getCategory());
 	    		u.setType(mu.getType());
+	    		u.setUdaljenost(mu.getUdaljenost());
 	    		userRepository.save(u);
 	    		return true;
 	    	}

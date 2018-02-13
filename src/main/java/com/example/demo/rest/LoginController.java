@@ -38,7 +38,10 @@ public class LoginController {
 		}else if(!u.getPassword().equals(password)) {
 			return "password";
 		}else {
-			return "ok";
+			if(u.isActivated())
+				return u.getType().name();
+			else
+				return "nije aktiviran";
 		}
 	}
 	

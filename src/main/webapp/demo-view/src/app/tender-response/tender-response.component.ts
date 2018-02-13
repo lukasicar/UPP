@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-tender-response',
@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TenderResponseComponent implements OnInit {
 
-  constructor() { }
+    @Input() taskId: string;
+    
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
 }

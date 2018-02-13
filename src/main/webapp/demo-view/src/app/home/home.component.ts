@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
     
     login(){
         
-        this.homeService.login(this.username,this.password).subscribe(x=>{alert(x);if(x=="ok"){localStorage.setItem('username',this.username);
+        this.homeService.login(this.username,this.password).subscribe(x=>{alert(x);if(x!="korisnik"&&x!="password"){
+            localStorage.setItem('username',this.username);localStorage.setItem('type',x);
         window.location.href="http://localhost:4200/home1"}});
         
     }

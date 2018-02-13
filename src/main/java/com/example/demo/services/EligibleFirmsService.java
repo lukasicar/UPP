@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,22 +18,27 @@ public class EligibleFirmsService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public List<User> check(TenderRequest tr) {
+	public List<User> check(TenderRequest tr,User u) {
 		System.out.println("udje odje");
 		List<User> firms=userRepository.findByType(Type.firm);
 		ArrayList<User> ff=new ArrayList<>();
-		//System.out.println(firms.size());
-		//System.out.println(firms);
 		for(User firm : firms) {
-			//System.out.println(firm.getUsername());
-			//System.out.println(firm.getCategory());
-			//System.out.println(firm.getCategory().getName());
-			//System.out.println(tr.getCategory().getName());
 			if((firm.getCategory().getName().equals(tr.getCategory().getName()))) {
-				ff.add(firm);
+				if(firm.getUdaljenost()>distance(firm.getLatitude(),u.getLatitude(),firm.getLongitude(),u.getLongitude(),0,0))
+					ff.add(firm);
 			}
 		}
 		//System.out.println(ff.size());
+		if(tr.getMaksimalniBrojPonuda()<ff.size()) {
+			ArrayList<User> ff3=new ArrayList<>();
+			for(int i=0;i<tr.getMaksimalniBrojPonuda();i++) {
+				Random rand = new Random();
+				User randomElement = ff.get(rand.nextInt(ff.size()));
+				ff.add(randomElement);
+				ff.remove(randomElement);
+			}
+			return ff3;
+		}
 		return ff;
 	}
 	

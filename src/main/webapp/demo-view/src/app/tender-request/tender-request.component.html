@@ -1,3 +1,15 @@
-<p>
-  tender-request works!
-</p>
+<div align="center">
+<br/>
+Kategorija<select [(ngModel)]="tr.category">
+  <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
+</select>
+<br/>
+OpisPosla<input type="text" [(ngModel)]="tr.opisPosla"/><br/>
+ProcjenaVrijednosti<input type="number" [(ngModel)]="tr.procjenaVrijednosti"/><br/>
+Rok za primanje ponuda<input type="date" [(ngModel)]="tr.rokZaPrimanjePonuda"/><br/>
+Maksimalni broj ponuda<input type="number" [(ngModel)]="tr.maksimalniBrojPonuda"/><br/>
+Rok za izvrsavanje usluge<input type="date" [(ngModel)]="tr.rokZaIzvrsavanjeUsluge"/>
+
+<br/><br/><br/>
+<button id="button-1" class="button" (click)="this.complete()">Complete Task</button>
+</div>

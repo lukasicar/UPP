@@ -12,6 +12,7 @@ export class Home1Component implements OnInit {
     tasks: string[];
     taskId: string="";
     taskName: string="";
+    type:string="";
     
     constructor(private home1Service: Home1Service) { }
 
@@ -20,6 +21,8 @@ export class Home1Component implements OnInit {
             window.location.href="http://localhost:4200";
         };
         this.username=localStorage.getItem('username');
+        this.type=localStorage.getItem('type');
+        this.getAvailableTasks();
     }
     
     logout(){
@@ -35,5 +38,9 @@ export class Home1Component implements OnInit {
     
     getAvailableTasks(){
         this.home1Service.getTasks().subscribe(x=>this.tasks=x);
+    }
+    
+    startProcess(){
+        this.home1Service.startProcess().subscribe(x=>this.getAvailableTasks());
     }
 }

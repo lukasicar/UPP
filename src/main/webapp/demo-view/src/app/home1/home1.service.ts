@@ -13,6 +13,12 @@ export class Home1Service {
     getTasks(){
         var headers = new Headers();
         headers.append('username', localStorage.getItem('username'));
-        return this.http.get(this.apiUrl+"/register/getTasks",{headers: headers}).map(res=>res.json());
+        return this.http.get(this.apiUrl+"/task/getTasks",{headers: headers}).map(res=>res.json());
+    }
+    
+    startProcess(){
+        var headers = new Headers();
+        headers.append('username', localStorage.getItem('username'));
+        return this.http.get(this.apiUrl+"/task/startProcess",{headers: headers}).map(res=>res.text());
     }
 }
