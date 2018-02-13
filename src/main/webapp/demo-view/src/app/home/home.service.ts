@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from "@angular/http";
+import { Http, Response, Headers } from "@angular/http";
 import 'rxjs/add/operator/map'
 import { MockUser } from './home.mockuser';
 import { environment } from '../../environments/environment';
@@ -15,9 +15,11 @@ export class HomeService {
         return this.http.get(this.apiUrl+"/register/startProcess").map(res=>res.text());    
     }
 
-    login(){
-        
-        return this.http.get(this.apiUrl+"/login").map(res=>res.text());
+    login(username:string,password:string){
+        var headers = new Headers();
+        headers.append('username', username);
+        headers.append('password', password);
+        return this.http.get(this.apiUrl+"/login",{headers: headers}).map(res=>res.text());
     }
     
     getTasks(){

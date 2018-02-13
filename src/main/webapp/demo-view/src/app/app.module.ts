@@ -11,13 +11,22 @@ import { HttpModule } from '@angular/http';
 import { HomeService } from './home/home.service';
 import { RegisterFirmComponent } from './register-firm/register-firm.component';
 import { RegisterFirmService } from './register-firm/register-firm.service';
+import { Home1Component } from './home1/home1.component';
+import { TenderRequestComponent } from './tender-request/tender-request.component';
+import { TenderResponseComponent } from './tender-response/tender-response.component';
+import { Home1Service } from './home1/home1.service';
+import { TenderRequestService } from './tender-request/tender-request.service';
+import { TenderResponseService } from './tender-response/tender-response.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     HomeComponent,
-    RegisterFirmComponent
+    RegisterFirmComponent,
+    Home1Component,
+    TenderRequestComponent,
+    TenderResponseComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +34,8 @@ import { RegisterFirmService } from './register-firm/register-firm.service';
     HttpModule,
     FormsModule
   ],
-  providers: [RegisterService,HomeService,RegisterFirmService],
+  providers: [RegisterService,HomeService,RegisterFirmService,Home1Service,TenderRequestComponent,TenderResponseComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

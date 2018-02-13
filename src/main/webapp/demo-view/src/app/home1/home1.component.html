@@ -1,0 +1,13 @@
+<p>
+  Dje si {{username}}
+</p>
+<br/><br/><br/><br/>
+<button id="button-1" class="button" (click)='this.startProcess()'>Start registration process</button>
+<br/><br/><br/><br/>
+<ol>
+  <li *ngFor="let task of tasks" (click)='beeba(task.name,task.id)'>
+   {{task.name}} 
+	</li>
+</ol>
+<br/><br/><br/><br/>
+<button id="button-1" class="button" (click)='this.logout()'>Logout</button>

@@ -12,11 +12,16 @@ export class HomeComponent implements OnInit {
     tasks: string[];
     taskId: string="";
     taskName: string="";
+    username: string;
+    password: string;
 
     constructor(private homeService: HomeService) { }
     
     ngOnInit() {
         this.getAvailableTasks();
+        if(localStorage.getItem('username')!=null){
+            window.location.href="http://localhost:4200/home1";
+        };
     }
     
     
@@ -26,7 +31,8 @@ export class HomeComponent implements OnInit {
     
     login(){
         
-        this.homeService.login().subscribe(x=>console.log("ee"));
+        this.homeService.login(this.username,this.password).subscribe(x=>{alert(x);if(x=="ok"){localStorage.setItem('username',this.username);
+        window.location.href="http://localhost:4200/home1"}});
         
     }
     
