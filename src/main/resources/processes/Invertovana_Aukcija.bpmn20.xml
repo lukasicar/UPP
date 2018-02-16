@@ -34,7 +34,10 @@
           <activiti:string><![CDATA[sicluka@yahoo.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:string><![CDATA[Heey majstore, ranjen si od pica svake subote]]></activiti:string>
+          <activiti:expression><![CDATA[Dobili ste ponudu za posao ${tr.getCategory().getName()}.
+Maksimalna cijena je ${tr.getProcjenaVrijednosti()}
+Rok za primanje ponuda ${tr.getRokZaPrimanjePonuda()}
+Rok za izvrsavanje usluga ${tr.getRokZaIzvrsavanjeUslusga()}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression><![CDATA[${x.mail}]]></activiti:expression>
@@ -59,14 +62,14 @@
     <userTask id="usertask4" name="Odluka o nastavku procesa" activiti:assignee="${user.username}"></userTask>
     <userTask id="usertask5" name="Razmatranje ponuda" activiti:assignee="${user.username}"></userTask>
     <sequenceFlow id="flow12" sourceRef="exclusivegateway3" targetRef="usertask5">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${firms.size()==tr.getMaksimalniBrojPonuda()}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ponude.size()==tr.getMaksimalniBrojPonuda()}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow13" sourceRef="exclusivegateway3" targetRef="usertask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${firms.size()<tr.getMaksimalniBrojPonuda()}]]></conditionExpression>
+    <sequenceFlow id="flow13" sourceRef="exclusivegateway3" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ponude.size()<tr.getMaksimalniBrojPonuda()}]]></conditionExpression>
     </sequenceFlow>
     <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow14" sourceRef="usertask4" targetRef="exclusivegateway4"></sequenceFlow>
-    <sequenceFlow id="flow15" sourceRef="exclusivegateway4" targetRef="mailtask1">
+    <sequenceFlow id="flow15" sourceRef="exclusivegateway4" targetRef="servicetask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${odabir2==true}]]></conditionExpression>
     </sequenceFlow>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
@@ -74,11 +77,11 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${odabir2==false}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow17" sourceRef="exclusivegateway5" targetRef="usertask5">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${firms.size()<tr.getMaksimalniBrojPonuda()}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ponude.size()>0}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow18" sourceRef="exclusivegateway5" targetRef="endevent3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${firms.size()==0}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ponude.size()==0}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent4" name="End"></endEvent>
     <sequenceFlow id="flow19" sourceRef="usertask5" targetRef="endevent4"></sequenceFlow>
@@ -100,6 +103,24 @@ Dobili ste task u kojem cete odluciti kako dalje.]]></activiti:string>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow20" sourceRef="mailtask2" targetRef="usertask2"></sequenceFlow>
+    <serviceTask id="mailtask3" name="Manji broj ponuda" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${user.mail}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[tenderMaster@localhost]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Manjni broj ponuda nego trazeno]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[Trazili ste ${tr.getMaksimalniBrojPonuda()} ponuda, a dobili ste ${ponude.size()} ponuda.
+Na sajtu ste dobili task da odlucite da li zelite da prosledite ponude na jos firmi, ili da evaluirate pristigle ponude]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow21" sourceRef="mailtask3" targetRef="usertask4"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
     <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
@@ -143,7 +164,7 @@ Dobili ste task u kojem cete odluciti kako dalje.]]></activiti:string>
         <omgdc:Bounds height="40.0" width="40.0" x="483.0" y="480.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
-        <omgdc:Bounds height="65.0" width="111.0" x="660.0" y="470.0"></omgdc:Bounds>
+        <omgdc:Bounds height="65.0" width="111.0" x="690.0" y="468.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
         <omgdc:Bounds height="71.0" width="112.0" x="469.0" y="580.0"></omgdc:Bounds>
@@ -162,6 +183,9 @@ Dobili ste task u kojem cete odluciti kako dalje.]]></activiti:string>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="67.0" width="118.0" x="533.0" y="124.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="60.0" width="115.0" x="560.0" y="471.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="86.0" y="157.0"></omgdi:waypoint>
@@ -213,16 +237,16 @@ Dobili ste task u kojem cete odluciti kako dalje.]]></activiti:string>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="523.0" y="500.0"></omgdi:waypoint>
-        <omgdi:waypoint x="660.0" y="502.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="501.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
-        <omgdi:waypoint x="771.0" y="502.0"></omgdi:waypoint>
+        <omgdi:waypoint x="801.0" y="500.0"></omgdi:waypoint>
         <omgdi:waypoint x="820.0" y="502.0"></omgdi:waypoint>
         <omgdi:waypoint x="820.0" y="470.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="820.0" y="430.0"></omgdi:waypoint>
-        <omgdi:waypoint x="552.0" y="315.0"></omgdi:waypoint>
+        <omgdi:waypoint x="352.0" y="198.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
         <omgdi:waypoint x="820.0" y="470.0"></omgdi:waypoint>
@@ -244,6 +268,10 @@ Dobili ste task u kojem cete odluciti kako dalje.]]></activiti:string>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
         <omgdi:waypoint x="651.0" y="157.0"></omgdi:waypoint>
         <omgdi:waypoint x="680.0" y="157.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="675.0" y="501.0"></omgdi:waypoint>
+        <omgdi:waypoint x="690.0" y="500.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

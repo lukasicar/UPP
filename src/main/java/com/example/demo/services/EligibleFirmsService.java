@@ -1,13 +1,16 @@
 package com.example.demo.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import org.activiti.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.model.TenderRequest;
+import com.example.demo.model.TenderResponse;
 import com.example.demo.model.User;
 import com.example.demo.model.User.Type;
 import com.example.demo.repositories.UserRepository;
@@ -18,7 +21,10 @@ public class EligibleFirmsService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public List<User> check(TenderRequest tr,User u) {
+	@Autowired
+	private RuntimeService runtimeService;
+	
+	public List<User> check(TenderRequest tr,User u,String pid) {
 		System.out.println("udje odje");
 		List<User> firms=userRepository.findByType(Type.firm);
 		ArrayList<User> ff=new ArrayList<>();
@@ -28,13 +34,25 @@ public class EligibleFirmsService {
 					ff.add(firm);
 			}
 		}
-		//System.out.println(ff.size());
+		//ne racunanje postojecih ponuda koje su odbijene
+		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(pid);
+		@SuppressWarnings("unchecked")
+		List<TenderResponse> ponude=(List<TenderResponse>) variables.get("ponude");
+		for(TenderResponse tre : ponude) {
+			for(User f : firms) {
+				if(f.getUsername().equals(tre.getFirmId())) {
+					ff.remove(f);
+				}
+			}
+		}
+		//System.out.println(ff.size())
+		//Slucajan odabir firmi
 		if(tr.getMaksimalniBrojPonuda()<ff.size()) {
 			ArrayList<User> ff3=new ArrayList<>();
 			for(int i=0;i<tr.getMaksimalniBrojPonuda();i++) {
 				Random rand = new Random();
 				User randomElement = ff.get(rand.nextInt(ff.size()));
-				ff.add(randomElement);
+				ff3.add(randomElement);
 				ff.remove(randomElement);
 			}
 			return ff3;

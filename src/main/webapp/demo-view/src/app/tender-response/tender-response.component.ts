@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { TenderResponse } from './tender-response';
+import { TenderResponseService } from './tender-response.service';
+
 
 @Component({
   selector: 'app-tender-response',
@@ -8,10 +11,16 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TenderResponseComponent implements OnInit {
 
     @Input() taskId: string;
+    tr:TenderResposse=new TenderResponse();
     
-    constructor() { }
+    constructor(private tenderResponseService: TenderResponseService) { }
 
     ngOnInit() {
+    }
+    
+    complete(){
+        this.tr.firmId=localStorage.getItem('username');
+        this.tenderResponseService.complete(this.tr,taskId).subscribe(x=>window.location.reload());
     }
 
 }

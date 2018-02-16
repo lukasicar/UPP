@@ -1,5 +1,6 @@
 package com.example.demo.rest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.MockTask;
 import com.example.demo.model.TenderRequest;
+import com.example.demo.model.TenderResponse;
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
 
@@ -57,6 +59,8 @@ public class TaskController {
 		User u=userRepository.findByUsername(request.getHeader("username"));
 		HashMap<String, Object> variables=new HashMap<>();
 		variables.put("user", u);
+		List<TenderResponse> ponude=new ArrayList<>();
+		variables.put("ponude",ponude);
 		runtimeService.startProcessInstanceByKey("myProcess",variables);
 		return "startan process";
 	}
@@ -71,6 +75,18 @@ public class TaskController {
 			variables.put("odabir1",false);
 		taskService.complete(id,variables);
 		return "cabar";
+	}
+	
+
+	@PostMapping("/tenderResponse/{id}")
+	public String createTenderRequest(@RequestBody TenderResponse tr,@PathVariable String id) {
+		Task t=taskService.createTaskQuery().taskId(id).singleResult();
+		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
+		List<TenderResponse> lista=(List<TenderResponse>) variables.get("ponude");
+		lista.add(tr);
+		variables.put("ponude", lista);
+		taskService.complete(id,variables);
+		return "eto";
 	}
 	
 }
