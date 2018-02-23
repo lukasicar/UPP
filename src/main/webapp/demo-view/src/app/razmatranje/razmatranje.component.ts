@@ -51,7 +51,11 @@ export class RazmatranjeComponent implements OnInit {
     }
     
     info(){
-        
+        if(typeof this.odabranaPonuda.firmId == 'undefined'){
+            alert("Odaberite firmu");
+            return;
+        }
+        this.razmatranjeService.info(this.taskId,this.odabranaPonuda).subscribe(x=>window.location.reload());
     }
 
 }

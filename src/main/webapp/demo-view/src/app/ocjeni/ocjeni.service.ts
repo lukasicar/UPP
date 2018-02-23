@@ -13,5 +13,14 @@ export class OcjeniService {
     complete(polje:string,taskId:string){
         return this.http.post(this.apiUrl+"/task/ocjeni/"+taskId,polje).map(res=>res.text());
     }
+    
+    getOdg(taskId:string){
+        return this.http.get(this.apiUrl+"/task/getOdg/"+taskId).map(res=>res.text());
+    }
+    
+    getUpit(taskId:string){
+        return this.http.get(this.apiUrl+"/task/getUpit/"+taskId).map(res=>res.text());
+    }
+    
 
 }

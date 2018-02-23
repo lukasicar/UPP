@@ -9,10 +9,14 @@ export class OcjeniComponent implements OnInit {
 
     @Input() taskId: string;
     polje:string="";
+    upit:string="";
+    odg:string="";
     
     constructor(private ocjeniService: OcjeniService) { }
 
     ngOnInit() {
+        //this.ocjeniService.getOdg(this.taskId).subscribe(x=>this.odg=x);
+        this.ocjeniService.getUpit(this.taskId).subscribe(x=>this.upit=x);
     }
     
     complete(){

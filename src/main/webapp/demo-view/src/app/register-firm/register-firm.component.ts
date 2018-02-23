@@ -23,10 +23,22 @@ export class RegisterFirmComponent implements OnInit {
       }
     
     register(mu:MockUser){
-        this.registerFirmService.register(this.mu,this.taskId).subscribe(x=>window.location.reload());
+        if(this.validation())
+            this.registerFirmService.register(this.mu,this.taskId).subscribe(x=>window.location.reload());
     }
 
     getCategories(){
         this.registerFirmService.getCategories().subscribe(s => {this.categories=s;});
+    }
+    
+    validation(){
+        if(this.mu.udaljenost==null){
+            alert("Unesite udaljenost");
+            return false;
+        }else if(typeof this.mu.category =='undefined'){
+            alert("Unesite kategoriju posla");
+            return false;
+        }
+        return true;
     }
 }

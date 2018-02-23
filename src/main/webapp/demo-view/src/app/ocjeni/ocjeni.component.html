@@ -1,5 +1,12 @@
 <div align="center">
 <br/>
+<div *ngIf="upit!='null'">
+	<p>Imate upit => {{upit}}</p>
+</div>
+<br/>
+<div>
+</div>
+<br/>
 Polje za unos<input type="text" [(ngModel)]="polje"/><br/>
 <br/><br/><br/>
 <button id="button-1" class="button" (click)="this.complete()">Complete Task</button>

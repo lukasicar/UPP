@@ -30,7 +30,7 @@ public class User
   @ManyToOne
   private Category category;
   
-  private ArrayList<Integer> ocjene;
+  private ArrayList<Integer> ocjene=new ArrayList<Integer>();
   
   public Category getCategory() {
 	return category;

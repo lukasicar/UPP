@@ -39,7 +39,7 @@
           <activiti:string><![CDATA[Zgembo]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression><![CDATA[A ja jos spavam po navici  c ${c}
+          <activiti:expression><![CDATA[Klikom ispod na link za potvrdu da ste vi kreirali nalog, nalog ce uistinu biti kreiran
 http://localhost:8080/confirmMail/get/${execution.getProcessInstanceId()}]]></activiti:expression>
         </activiti:field>
       </extensionElements>

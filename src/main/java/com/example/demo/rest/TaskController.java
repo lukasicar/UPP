@@ -115,6 +115,17 @@ public class TaskController {
 				variables.put("ponude", new ArrayList<TenderResponse>());
 				variables.put("odabir2",false);
 			}
+		}else if(t.getName().equals("Da li proslediti na jos firmi")) {
+			if(choice.equals("Da")) {
+				variables.put("odg", null);
+				variables.put("upit",null);
+				variables.put("odabir4",true);
+			}
+			else {
+				variables.put("odg", null);
+				variables.put("upit",null);
+				variables.put("odabir4",false);
+			}
 		}
 		
 		taskService.complete(id,variables);
@@ -166,6 +177,8 @@ public class TaskController {
 		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
 		variables.put("tenderResponse",tr);
 		variables.put("odabir3", 1);
+		variables.put("odg", null);
+		variables.put("upit", null);
 		taskService.complete(id, variables);
 		return "zglavan";
 	}
@@ -195,10 +208,38 @@ public class TaskController {
 				return "not ok";
 			}
 		}else {
-			
+			if(t.getName().equals("Slobodni oblik")) {
+				variables.put("upit", polje);
+			}else {
+				variables.put("odg", polje);
+			}
 		}
-		
+		taskService.complete(id);
 		return "ok";
+	}
+	
+	@PostMapping("/info/{id}")
+	public String info(@PathVariable String id,@RequestBody TenderResponse tr) {
+		Task t=taskService.createTaskQuery().taskId(id).singleResult();
+		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
+		variables.put("tenderResponse",tr);
+		variables.put("odabir3", 2);
+		taskService.complete(id, variables);
+		return "zglavan";
+	}
+	
+	@GetMapping("/getUpit/{id}")
+	public String getUpit(@PathVariable String id) {
+		Task t=taskService.createTaskQuery().taskId(id).singleResult();
+		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
+		return (String) variables.get("upit");
+	}
+	
+	@GetMapping("/getOdg/{id}")
+	public String getOdg(@PathVariable String id) {
+		Task t=taskService.createTaskQuery().taskId(id).singleResult();
+		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
+		return (String) variables.get("odg");
 	}
 	
 }

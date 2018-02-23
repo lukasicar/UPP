@@ -24,4 +24,8 @@ export class RazmatranjeService {
     no(taskId:string){
         return this.http.get(this.apiUrl+"/task/no/"+taskId).map(res=>res.text());
     }
+    
+    info(taskId:string,tr:TenderResponse){
+        return this.http.post(this.apiUrl+"/task/info/"+taskId,tr).map(res=>res.text());
+    }
 }
