@@ -5,8 +5,8 @@
 	<input  [(ngModel)]="mu.udaljenost" type="number"/>
 </label>  
 <br/>
-Kategorija<select [(ngModel)]="categoryName">
-  <option *ngFor="let c of categories">{{c.name}}</option>
+Kategorija<select [(ngModel)]="mu.category">
+  <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
 </select>
 <br/>
 <button id="button-1" class="button" (click)='register(mu)'>Complete task</button>

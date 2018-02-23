@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.MockTask;
 import com.example.demo.model.MockUser;
+import com.example.demo.repositories.CategoryRepository;
 
 @RestController
 @RequestMapping("/register")
@@ -38,6 +39,9 @@ public class RegistrationController {
 	
 	@Autowired
 	TaskService taskService;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
 	
 	@GetMapping("/startProcess")
 	public String insalah(HttpServletRequest request) {
@@ -64,9 +68,15 @@ public class RegistrationController {
 			MockUser mm=(MockUser) variables.get("user");
 			if(mu.getUsername()==null) {
 				mm.setCategory(mu.getCategory());
+				//mm.setCategory(categoryRepository.findOne(mu.getCategory().getName()));
 				mm.setUdaljenost(mu.getUdaljenost());
 				variables.put("user", mm);
-				taskService.complete(id,variables);
+				try {
+					taskService.complete(id,variables);
+				} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println(e);
+				}
 				System.out.println("bila firma");
 				return "adads";
 			}

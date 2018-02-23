@@ -3,7 +3,7 @@ export class TenderRequest{
     category:Category;
     opisPosla:string;
     procjenaVrijednosti:number;
-    rokZaPrimanjePonuda:Date;
+    rokZaPrimanjePonuda:string;
     maksimalniBrojPonuda:number;
-    rokZaIzvrsavanjeUsluge:Date;
+    rokZaIzvrsavanjeUsluge:string;
 }

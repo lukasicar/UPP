@@ -25,7 +25,7 @@ public class EligibleFirmsService {
 	private RuntimeService runtimeService;
 	
 	public List<User> check(TenderRequest tr,User u,String pid) {
-		System.out.println("udje odje");
+		System.out.println("provjera firmi");
 		List<User> firms=userRepository.findByType(Type.firm);
 		ArrayList<User> ff=new ArrayList<>();
 		for(User firm : firms) {
@@ -55,8 +55,18 @@ public class EligibleFirmsService {
 				ff3.add(randomElement);
 				ff.remove(randomElement);
 			}
+			
+			//ako se odbijaju ponude
+			
+			if(variables.get("odabir3")!=null) {
+				variables.put("ponude", new ArrayList<TenderResponse>());
+				runtimeService.setVariables(pid, variables);
+			}
 			return ff3;
 		}
+		
+		
+		
 		return ff;
 	}
 	

@@ -2,7 +2,7 @@
   Dje si {{username}}
 </p>
 <br/><br/><br/><br/>
-<button id="button-1" class="button" *ngIf="type=='regular'" (click)='this.startProcess()'>Start registration process</button>
+<button id="button-1" class="button" *ngIf="type=='regular'" (click)='this.startProcess()'>Start auction process</button>
 <br/><br/><br/><br/>
 <ol>
   <li *ngFor="let task of tasks" (click)='beeba(task.name,task.id)'>
@@ -14,7 +14,8 @@
 
 
 <app-tender-request *ngIf="taskName=='Zahtjev za nabavkom robe'" [taskId]='taskId'></app-tender-request>
-<app-tender-response *ngIf="taskName=='Registracija firme'" [taskId]='taskId'></app-tender-response>
+<app-tender-response *ngIf="taskName=='Odgovor na zahtev'" [taskId]='taskId'></app-tender-response>
 
 <app-yes-no *ngIf="taskName=='Da li korisnik zeli da se zahtev prosledi na manji broj firmi'" [taskId]='taskId'></app-yes-no>
-<app-yes-no *ngIf="taskName=='Odluka o nastavku procesa'" [taskId]='taskId'></app-yes-no>
+<app-yes-no *ngIf="taskName=='Da li proslediti na jos firmi'" [taskId]='taskId'></app-yes-no>
+<app-razmatranje *ngIf="taskName=='Razmatranje ponuda'" [taskId]='taskId'></app-razmatranje>

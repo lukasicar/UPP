@@ -11,7 +11,7 @@ import { TenderResponseService } from './tender-response.service';
 export class TenderResponseComponent implements OnInit {
 
     @Input() taskId: string;
-    tr:TenderResposse=new TenderResponse();
+    tr:TenderResponse=new TenderResponse();
     
     constructor(private tenderResponseService: TenderResponseService) { }
 
@@ -20,7 +20,7 @@ export class TenderResponseComponent implements OnInit {
     
     complete(){
         this.tr.firmId=localStorage.getItem('username');
-        this.tenderResponseService.complete(this.tr,taskId).subscribe(x=>window.location.reload());
+        this.tenderResponseService.complete(this.tr,this.taskId).subscribe(x=>window.location.reload());
     }
 
 }

@@ -3,13 +3,18 @@ package com.example.demo.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.joda.time.DateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class TenderRequest implements Serializable{
 	
 	private Category category;
 	private String opisPosla;
 	private double procjenaVrijednosti;
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
 	private Date rokZaPrimanjePonuda;
 	private int maksimalniBrojPonuda;
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
 	private Date rokZaIzvrsavanjeUsluge;
 	
 	public Date getRokZaIzvrsavanjeUsluge() {

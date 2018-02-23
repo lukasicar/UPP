@@ -1,3 +1,26 @@
-<p>
-  razmatranje works!
-</p>
+<div align="center">
+<br/>
+<br/>
+
+<ol>
+  <li>
+  <li *ngFor="let ponuda of ponude" >
+   {{ponuda.firmId}}{{ponuda.cijena}}{{ponuda.datum}}
+  </li>
+  
+</ol>
+<table>
+	<tr><th>Id firme</th><th>Cijena usluge</th><th>Datum izvrsenja</th><th></th></tr>
+  	<tr *ngFor="let ponuda of ponude">
+  		<td>{{ponuda.firmId}}</td>
+  		<td>{{ponuda.cijena}}</td>
+  		<td>{{ponuda.datum}}</td>
+  		<td><input type="checkbox" [ngModel]='ponuda'/></td>
+  	</tr>
+</table>
+<br/>
+<br/><br/><br/>
+<button id="button-1" class="button" (click)="this.complete()">Complete Task</button>
+
+<button id="button-2" class="button" (click)="this.no()">Ne odgovara nijedna ponuda</button>
+</div>

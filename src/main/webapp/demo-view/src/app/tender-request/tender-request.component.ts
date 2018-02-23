@@ -27,7 +27,13 @@ export class TenderRequestComponent implements OnInit {
       }
     
     complete(){
-        this.tenderRequestService.complete(this.tr,this.taskId).subscribe(x=>window.location.reload());
+        if(typeof this.tr.rokZaPrimanjePonuda=='undefined')
+            alert("uzmi datum");
+        else{
+            this.tr.rokZaPrimanjePonuda+=":00";
+            this.tr.rokZaIzvrsavanjeUsluge+=":00";
+            this.tenderRequestService.complete(this.tr,this.taskId).subscribe(x=>window.location.reload());
+        }
     }
 
     getCategories(){

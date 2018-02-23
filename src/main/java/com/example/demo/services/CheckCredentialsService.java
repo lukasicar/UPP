@@ -41,6 +41,7 @@ public class CheckCredentialsService
 	    		return true;
 	    	}
 	    	System.out.println("los mail");
+	    	return false;
 	    }
 	    System.out.println("username vec postoji");
 	    return false;

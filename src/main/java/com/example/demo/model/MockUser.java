@@ -2,6 +2,9 @@ package com.example.demo.model;
 
 import java.io.Serializable;
 
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
 public class MockUser
   implements Serializable
 {
@@ -17,6 +20,7 @@ public class MockUser
   private long longitude;
   private long latitude;
   private long udaljenost;
+  @Transient
   private Category category;
   
   public String getUsername()

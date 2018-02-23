@@ -23,9 +23,6 @@ export class RegisterFirmComponent implements OnInit {
       }
     
     register(mu:MockUser){
-        this.o=new Category();
-        this.o.name=this.categoryName;
-        this.mu.category=this.o
         this.registerFirmService.register(this.mu,this.taskId).subscribe(x=>window.location.reload());
     }
 
