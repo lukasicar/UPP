@@ -109,7 +109,7 @@ public class TaskController {
 				c.add(Calendar.MINUTE, 2);
 				tr.setRokZaPrimanjePonuda(c.getTime());
 				variables.put("tr",tr);
-				System.out.println(tr.getRokZaPrimanjePonuda());
+				//System.out.println(tr.getRokZaPrimanjePonuda());
 			}
 			else {
 				variables.put("ponude", new ArrayList<TenderResponse>());
@@ -128,6 +128,12 @@ public class TaskController {
 		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
 		@SuppressWarnings("unchecked")
 		List<TenderResponse> lista=(List<TenderResponse>) variables.get("ponude");
+		//Namjestanje kalendara
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(tr.getDatum()); 
+		c.add(Calendar.HOUR, -1);
+		tr.setDatum(c.getTime());
+		
 		lista.add(tr);
 		variables.put("ponude", lista);
 		System.out.println(lista.size());
@@ -152,6 +158,47 @@ public class TaskController {
 		variables.put("noT", (int)variables.get("noT")+1);
 		taskService.complete(id, variables);
 		return "no";
+	}
+	
+	@PostMapping("/zadovoljan/{id}")
+	public String zadovoljan(@PathVariable String id,@RequestBody TenderResponse tr) {
+		Task t=taskService.createTaskQuery().taskId(id).singleResult();
+		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
+		variables.put("tenderResponse",tr);
+		variables.put("odabir3", 1);
+		taskService.complete(id, variables);
+		return "zglavan";
+	}
+	
+	
+	@PostMapping("/ocjeni/{id}")
+	public String ocjeni(@PathVariable String id,@RequestBody String polje) {
+		Task t=taskService.createTaskQuery().taskId(id).singleResult();
+		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
+		if(t.getName().equals("Potvrda zavrsetka posla i ocenjivanje firme")||t.getName().equals("Ocenjivanje klijenta")) {
+			try {
+				Integer i=Integer.parseInt(polje);
+				if(t.getName().equals("Potvrda zavrsetka posla i ocenjivanje firme")) {
+					String x=((TenderResponse) variables.get("tenderResponse")).getFirmId();
+					User u=userRepository.findByUsername(x);
+					u.getOcjene().add(i);
+					userRepository.save(u);
+				}else {
+					String x=((User) variables.get("user")).getUsername();
+					User u=userRepository.findByUsername(x);
+					u.getOcjene().add(i);
+					userRepository.save(u);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println(e);
+				return "not ok";
+			}
+		}else {
+			
+		}
+		
+		return "ok";
 	}
 	
 }

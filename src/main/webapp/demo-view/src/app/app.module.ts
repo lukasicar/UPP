@@ -21,6 +21,8 @@ import { YesNoComponent } from './yes-no/yes-no.component';
 import { YesNoService } from './yes-no/yes-no.service';
 import { RazmatranjeComponent } from './razmatranje/razmatranje.component';
 import { RazmatranjeService } from './razmatranje/razmatranje.service';
+import { OcjeniComponent } from './ocjeni/ocjeni.component';
+import { OcjeniService } from './ocjeni/ocjeni.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { RazmatranjeService } from './razmatranje/razmatranje.service';
     TenderRequestComponent,
     TenderResponseComponent,
     YesNoComponent,
-    RazmatranjeComponent
+    RazmatranjeComponent,
+    OcjeniComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,7 @@ import { RazmatranjeService } from './razmatranje/razmatranje.service';
     FormsModule
   ],
   providers: [RegisterService,HomeService,RegisterFirmService,Home1Service,TenderRequestService,TenderResponseService,
-  YesNoService,RazmatranjeService],
+  YesNoService,RazmatranjeService,OcjeniService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

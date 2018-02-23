@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Http, Response } from "@angular/http";
+import { TenderResponse } from './../tender-response/tender-response';
 import 'rxjs/add/operator/map';
 
 
@@ -12,8 +13,8 @@ export class RazmatranjeService {
     
     constructor(private http: Http) { }
     
-    complete(){
-        //return this.http.post(this.apiUrl+"/task/tenderRequest/"+taskId,tr).map(res=>res.text());
+    zadovoljan(taskId:string,tr:TenderResponse){
+        return this.http.post(this.apiUrl+"/task/zadovoljan/"+taskId,tr).map(res=>res.text());
     }
 
     getPonude(taskId:string){

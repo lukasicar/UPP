@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -28,6 +29,8 @@ public class User
   //private List<Category> categories;
   @ManyToOne
   private Category category;
+  
+  private ArrayList<Integer> ocjene;
   
   public Category getCategory() {
 	return category;
@@ -168,5 +171,13 @@ public boolean isActivated() {
 
 public void setActivated(boolean activated) {
 	this.activated = activated;
+}
+
+public ArrayList<Integer> getOcjene() {
+	return ocjene;
+}
+
+public void setOcjene(ArrayList<Integer> ocjene) {
+	this.ocjene = ocjene;
 }
 }

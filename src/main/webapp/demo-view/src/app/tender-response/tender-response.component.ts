@@ -20,6 +20,7 @@ export class TenderResponseComponent implements OnInit {
     
     complete(){
         this.tr.firmId=localStorage.getItem('username');
+        this.tr.datum+=":00";
         this.tenderResponseService.complete(this.tr,this.taskId).subscribe(x=>window.location.reload());
     }
 

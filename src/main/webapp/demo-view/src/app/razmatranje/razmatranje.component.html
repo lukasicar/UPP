@@ -15,12 +15,12 @@
   		<td>{{ponuda.firmId}}</td>
   		<td>{{ponuda.cijena}}</td>
   		<td>{{ponuda.datum}}</td>
-  		<td><input type="checkbox" [ngModel]='ponuda'/></td>
+  		<td><input type="checkbox" [(ngModel)]="ponuda.selected" (change)='a(ponuda)'/></td>
   	</tr>
 </table>
 <br/>
 <br/><br/><br/>
-<button id="button-1" class="button" (click)="this.complete()">Complete Task</button>
-
+<button id="button-1" class="button" (click)="this.zadovoljan()">Zadovoljan ponudom</button>
+<button id="button-3" class="button" (click)="this.info()">Dodatne informacije</button>
 <button id="button-2" class="button" (click)="this.no()">Ne odgovara nijedna ponuda</button>
 </div>
