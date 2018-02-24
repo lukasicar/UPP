@@ -134,7 +134,7 @@ public class TaskController {
 	
 
 	@PostMapping("/tenderResponse/{id}")
-	public String createTenderRequest(@RequestBody TenderResponse tr,@PathVariable String id) {
+	public String createTenderResponse(@RequestBody TenderResponse tr,@PathVariable String id) {
 		Task t=taskService.createTaskQuery().taskId(id).singleResult();
 		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
 		@SuppressWarnings("unchecked")
@@ -145,9 +145,30 @@ public class TaskController {
 		c.add(Calendar.HOUR, -1);
 		tr.setDatum(c.getTime());
 		
+		//ako vec postoji 
+		for(TenderResponse tenderr : lista) {
+			if(tenderr.getFirmId().equals(tr.getFirmId())) {
+				tenderr=tr;
+				variables.put("ponude", lista);
+				variables.put("odabir5", false);
+				//System.out.println(lista.size());
+				taskService.complete(id,variables);
+				return "eto";
+			}
+		}
 		lista.add(tr);
 		variables.put("ponude", lista);
-		System.out.println(lista.size());
+		variables.put("odabir5", false);
+		//System.out.println(lista.size());
+		taskService.complete(id,variables);
+		return "eto";
+	}
+	
+	@PostMapping("/tenderResponse1/{id}")
+	public String createTenderResponse1(@RequestBody TenderResponse tr,@PathVariable String id) {
+		Task t=taskService.createTaskQuery().taskId(id).singleResult();
+		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
+		variables.put("odabir5", true);
 		taskService.complete(id,variables);
 		return "eto";
 	}
@@ -158,6 +179,7 @@ public class TaskController {
 		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
 		@SuppressWarnings("unchecked")
 		List<TenderResponse> lista=(List<TenderResponse>) variables.get("ponude");
+		lista.sort((TenderResponse o1, TenderResponse o2)->(int)o1.getCijena()+(int)o2.getCijena());
 		return lista.stream().filter(u -> u.isPristanak()).collect(Collectors.toList());
 	}
 	

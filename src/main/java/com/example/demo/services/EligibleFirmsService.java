@@ -31,7 +31,8 @@ public class EligibleFirmsService {
 		for(User firm : firms) {
 			if((firm.getCategory().getName().equals(tr.getCategory().getName()))) {
 				if(firm.getUdaljenost()>distance(firm.getLatitude(),u.getLatitude(),firm.getLongitude(),u.getLongitude(),0,0))
-					ff.add(firm);
+					if(firm.isActivated())
+						ff.add(firm);
 			}
 		}
 		//ne racunanje postojecih ponuda koje su odbijene
@@ -45,6 +46,21 @@ public class EligibleFirmsService {
 				}
 			}
 		}
+		
+		
+		//Odabir firmi pomocu ocjena
+		for(User f : ff) {
+			if(!f.getOcjene().isEmpty()) {
+				ff.sort((User o1, User o2)->o1.getProcjecnaOcjena()+o2.getProcjecnaOcjena());
+				if(variables.get("odabir3")!=null) {
+					variables.put("ponude", new ArrayList<TenderResponse>());
+					runtimeService.setVariables(pid, variables);
+				}
+				return ff;
+			}
+		}
+		
+		
 		//System.out.println(ff.size())
 		//Slucajan odabir firmi
 		if(tr.getMaksimalniBrojPonuda()<ff.size()) {
@@ -64,6 +80,8 @@ public class EligibleFirmsService {
 			}
 			return ff3;
 		}
+		
+		
 		
 		
 		

@@ -31,7 +31,7 @@ export class Home1Component implements OnInit {
     }
     
     beeba(taskName: string,id: string){
-        alert(id);
+        //alert(id);
         this.taskId=id;
         this.taskName=taskName;
     }

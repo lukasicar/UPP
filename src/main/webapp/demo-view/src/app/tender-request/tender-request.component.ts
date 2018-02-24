@@ -27,17 +27,39 @@ export class TenderRequestComponent implements OnInit {
       }
     
     complete(){
-        if(typeof this.tr.rokZaPrimanjePonuda=='undefined')
-            alert("uzmi datum");
-        else{
+        if(this.validation()){
             this.tr.rokZaPrimanjePonuda+=":00";
             this.tr.rokZaIzvrsavanjeUsluge+=":00";
             this.tenderRequestService.complete(this.tr,this.taskId).subscribe(x=>window.location.reload());
         }
+        
     }
 
     getCategories(){
         this.registerFirmService.getCategories().subscribe(s => {this.categories=s;});
+    }
+    
+    validation(){
+        if(typeof this.tr.category =='undefined'){
+            alert("Unesite kategoriju posla");
+            return false;
+        }else if(this.tr.opisPosla==null||this.tr.opisPosla.trim().length==0){
+            alert("Unesite opis posla");
+            return false;
+        }else if(this.tr.procjenaVrijednosti==null){
+            alert("Unesite procjenu vrijednosti");
+            return false;
+        }else if(typeof this.tr.rokZaPrimanjePonuda=='undefined'){
+            alert("Odredite rok za primanje ponuda");
+            return false;
+        }else if(this.tr.maksimalniBrojPonuda==null){
+            alert("Unesite maksimalni broj ponuda");
+            return false;
+        }else if(typeof this.tr.rokZaIzvrsavanjeUsluge=='undefined'){
+            alert("Odredite rok za izvrsavanje usluge");
+            return false;
+        }
+        return true;
     }
     
 

@@ -16,7 +16,7 @@ export class OcjeniComponent implements OnInit {
 
     ngOnInit() {
         //this.ocjeniService.getOdg(this.taskId).subscribe(x=>this.odg=x);
-        this.ocjeniService.getUpit(this.taskId).subscribe(x=>this.upit=x);
+        this.ocjeniService.getOdg(this.taskId).subscribe(x=>{this.upit=x;alert(x););
     }
     
     complete(){

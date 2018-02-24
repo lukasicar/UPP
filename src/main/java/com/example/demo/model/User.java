@@ -180,4 +180,14 @@ public ArrayList<Integer> getOcjene() {
 public void setOcjene(ArrayList<Integer> ocjene) {
 	this.ocjene = ocjene;
 }
+
+public int getProcjecnaOcjena() {
+	int sum=0;
+	int i=0;;
+	for(i=0;i<getOcjene().size();i++) {
+		sum+=getOcjene().get(i).intValue();
+	}
+	return sum/(i+1);
+}
+
 }

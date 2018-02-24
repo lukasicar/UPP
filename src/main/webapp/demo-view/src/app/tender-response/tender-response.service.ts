@@ -14,5 +14,10 @@ export class TenderResponseService {
     complete(tr:TenderResponse,taskId:string){
         return this.http.post(this.apiUrl+"/task/tenderResponse/"+taskId,tr).map(res=>res.text());
     }
+    
+    complete1(tr:TenderResponse,taskId:string){
+        return this.http.post(this.apiUrl+"/task/tenderResponse1/"+taskId,tr).map(res=>res.text());
+    }
+
 
 }
