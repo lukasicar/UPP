@@ -1,4 +1,9 @@
 <div align="center">
+<br/>
+<div *ngIf="odg!=''">
+	<p>Imate odg => {{odg}}</p>
+</div>
+<br/>
 Odaberite opciju
 <select [(ngModel)]="choice">
 	<option>Da</option>

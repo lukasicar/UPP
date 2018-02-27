@@ -179,7 +179,7 @@ Na sajtu ste dobili task da odlucite da li zelite da prosledite ponude na jos fi
       <startEvent id="startevent2" name="Start"></startEvent>
       <sequenceFlow id="flow45" sourceRef="startevent2" targetRef="usertask10"></sequenceFlow>
       <sequenceFlow id="flow46" sourceRef="usertask10" targetRef="usertask8"></sequenceFlow>
-      <userTask id="usertask11" name="Da li ste zadovoljni"></userTask>
+      <userTask id="usertask11" name="Da li ste zadovoljni" activiti:assignee="${user.username}"></userTask>
       <sequenceFlow id="flow49" sourceRef="usertask11" targetRef="endevent5"></sequenceFlow>
     </subProcess>
     <boundaryEvent id="boundarytimer2" name="Timer" attachedToRef="subprocess1" cancelActivity="true">
@@ -204,6 +204,12 @@ Na sajtu ste dobili task da odlucite da li zelite da prosledite ponude na jos fi
       </sequenceFlow>
     </subProcess>
     <sequenceFlow id="flow50" sourceRef="subprocess2" targetRef="usertask5"></sequenceFlow>
+    <boundaryEvent id="boundarytimer3" name="Timer" attachedToRef="subprocess2" cancelActivity="true">
+      <timerEventDefinition>
+        <timeDate>${tr.rokZaPrimanjePonuda}</timeDate>
+      </timerEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow55" sourceRef="boundarytimer3" targetRef="usertask5"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
     <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
@@ -325,7 +331,10 @@ Na sajtu ste dobili task da odlucite da li zelite da prosledite ponude na jos fi
         <omgdc:Bounds height="61.0" width="110.0" x="813.0" y="370.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway8" id="BPMNShape_exclusivegateway8">
-        <omgdc:Bounds height="40.0" width="41.0" x="800.0" y="450.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="800.0" y="450.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundarytimer3" id="BPMNShape_boundarytimer3">
+        <omgdc:Bounds height="30.0" width="30.0" x="709.0" y="531.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="86.0" y="157.0"></omgdi:waypoint>
@@ -496,13 +505,17 @@ Na sajtu ste dobili task da odlucite da li zelite da prosledite ponude na jos fi
         <omgdi:waypoint x="813.0" y="400.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow54" id="BPMNEdge_flow54">
-        <omgdi:waypoint x="841.0" y="470.0"></omgdi:waypoint>
+        <omgdi:waypoint x="840.0" y="470.0"></omgdi:waypoint>
         <omgdi:waypoint x="908.0" y="469.0"></omgdi:waypoint>
         <omgdi:waypoint x="868.0" y="431.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
         <omgdi:waypoint x="935.0" y="448.0"></omgdi:waypoint>
         <omgdi:waypoint x="870.0" y="551.0"></omgdi:waypoint>
+        <omgdi:waypoint x="525.0" y="580.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow55" id="BPMNEdge_flow55">
+        <omgdi:waypoint x="724.0" y="561.0"></omgdi:waypoint>
         <omgdi:waypoint x="525.0" y="580.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

@@ -115,7 +115,7 @@ public class TaskController {
 				variables.put("ponude", new ArrayList<TenderResponse>());
 				variables.put("odabir2",false);
 			}
-		}else if(t.getName().equals("Da li proslediti na jos firmi")) {
+		}else if(t.getName().equals("Da li ste zadovoljni")) {
 			if(choice.equals("Da")) {
 				variables.put("odg", null);
 				variables.put("upit",null);
@@ -139,16 +139,19 @@ public class TaskController {
 		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
 		@SuppressWarnings("unchecked")
 		List<TenderResponse> lista=(List<TenderResponse>) variables.get("ponude");
-		//Namjestanje kalendara
-		Calendar c = Calendar.getInstance(); 
-		c.setTime(tr.getDatum()); 
-		c.add(Calendar.HOUR, -1);
-		tr.setDatum(c.getTime());
 		
+		if(tr.getDatum()!=null) {
+			//Namjestanje kalendara
+			Calendar c = Calendar.getInstance(); 
+			c.setTime(tr.getDatum()); 
+			c.add(Calendar.HOUR, -1);
+			tr.setDatum(c.getTime());
+		}
 		//ako vec postoji 
 		for(TenderResponse tenderr : lista) {
 			if(tenderr.getFirmId().equals(tr.getFirmId())) {
-				tenderr=tr;
+				lista.set(lista.indexOf(tenderr), tr);
+				//tenderr=tr;
 				variables.put("ponude", lista);
 				variables.put("odabir5", false);
 				//System.out.println(lista.size());
@@ -179,7 +182,7 @@ public class TaskController {
 		HashMap<String, Object> variables=(HashMap<String, Object>) runtimeService.getVariables(t.getProcessInstanceId());
 		@SuppressWarnings("unchecked")
 		List<TenderResponse> lista=(List<TenderResponse>) variables.get("ponude");
-		lista.sort((TenderResponse o1, TenderResponse o2)->(int)o1.getCijena()+(int)o2.getCijena());
+		lista.sort((TenderResponse o1, TenderResponse o2)->(int)o1.getCijena()-(int)o2.getCijena());
 		return lista.stream().filter(u -> u.isPristanak()).collect(Collectors.toList());
 	}
 	
@@ -236,7 +239,7 @@ public class TaskController {
 				variables.put("odg", polje);
 			}
 		}
-		taskService.complete(id);
+		taskService.complete(id,variables);
 		return "ok";
 	}
 	

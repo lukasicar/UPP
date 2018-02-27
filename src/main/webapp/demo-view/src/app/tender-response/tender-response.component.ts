@@ -13,30 +13,30 @@ export class TenderResponseComponent implements OnInit {
 
     @Input() taskId: string;
     tr:TenderResponse=new TenderResponse();
-    redniBr:string="";
+    redniBr:number=0;
     
     constructor(private tenderResponseService: TenderResponseService,private razmatranjeService: RazmatranjeService) { }
 
     ngOnInit() {
         var name=localStorage.getItem('username');
-        this.razmatranjeService.getPonude(this.taskId).subscribe(x=>{for(var i in x){if(x[i].firmId==name){this.redniBr=i;}}});
+        this.razmatranjeService.getPonude(this.taskId).subscribe(x=>{for(var i in x){if(x[i].firmId==name){this.redniBr=+i+1;}}});
         
     }
     
     complete(){
         if(this.validation()){
             this.tr.firmId=localStorage.getItem('username');
-            this.tr.datum+=":00";
+            if(this.tr.datum!=null)
+                this.tr.datum+=":00";
             this.tenderResponseService.complete(this.tr,this.taskId).subscribe(x=>window.location.reload());
         }
     }
     
     complete1(){
-        if(this.validation()){
-            this.tr.firmId=localStorage.getItem('username');
-            //this.tr.datum+=":00";
-            this.tenderResponseService.complete1(this.tr,this.taskId).subscribe(x=>window.location.reload());
-        }
+        this.tr.firmId=localStorage.getItem('username');
+        //this.tr.datum+=":00";
+        this.tenderResponseService.complete1(this.tr,this.taskId).subscribe(x=>window.location.reload());
+        
     }
     
     validation(){
@@ -49,7 +49,7 @@ export class TenderResponseComponent implements OnInit {
                 return false;
             }
         }else{
-            //this.tr.datum=new Date().toString();
+            this.tr.datum=null;            
         }
         return true;
     }
